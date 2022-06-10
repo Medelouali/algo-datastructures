@@ -15,6 +15,7 @@ class Bst{
         Bst(Node* root_t):root(root_t){};
         ~Bst(){};
         bool isEmpty();
+        bool doesExist(int data);
         void insert(int);
         void remove(int){};
         void print(){};
@@ -84,4 +85,12 @@ void Bst::printInorder(){
     Bst(this->root->left).printPreorder();
     cout<<this->root->data<<"\t";
     Bst(this->root->right).printPreorder();
+}
+
+bool Bst::doesExist(int data){
+    if(!this->root)return false;
+    if(this->root->data==data)return true;
+    bool leftSearch=Bst(this->root->left).doesExist(data);
+    if(leftSearch)return leftSearch;
+    return Bst(this->root->right).doesExist(data);
 }

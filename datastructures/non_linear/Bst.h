@@ -20,15 +20,15 @@ class Bst{
     public:
         BstNode<T>* root;
         Bst():root(NULL){};
-        Bst(const BstNode<T>*& root_t):root(root_t){};
+        Bst(BstNode<T>* root_t):root(root_t){};
         ~Bst(){};
         bool isEmpty();
-        bool doesExist(const T& data);
-        bool isSubtree(const BstNode<T>*& subTree);
-        Queue<BstNode<T>*> getBranch(const BstNode<T>*& subTree);
+        bool doesExist(T data);
+        bool isSubtree(BstNode<T>* subTree);
+        Queue<BstNode<T>*> getBranch(BstNode<T>* subTree);
         BstNode<T>* getRightMin();
-        void insert(const T&);
-        bool remove(const T&);
+        void insert(T);
+        bool remove(T);
         void print(){};
         void printInorder();
         void printPreorder();
@@ -44,7 +44,7 @@ template<typename T> bool Bst<T>::isEmpty(){
     return this->root == NULL;
 };
 
-template<typename T> void Bst<T>::insert(const T& data){
+template<typename T> void Bst<T>::insert(T data){
     BstNode<T> *newNode = new BstNode<T>;
     if(this->isEmpty()){
         this->root = newNode;
@@ -101,22 +101,22 @@ template<typename T> void Bst<T>::printInorder(){
     Bst(this->root->right).printPreorder();
 }
 
-template<typename T> bool Bst<T>::doesExist(const T& data){
+template<typename T> bool Bst<T>::doesExist(T data){
     if(!this->root)return false;
     if(this->root->data==data)return true;
     if(Bst(this->root->left).doesExist(data))return true;
     return Bst(this->root->right).doesExist(data);
 }
 
-template<typename T> bool Bst<T>::isSubtree(const BstNode<T>*& subTree){
+template<typename T> bool Bst<T>::isSubtree(BstNode<T>* subTree){
     if(this->isEmpty() || subTree==NULL) return false;
     if(this->root==subTree) return true;
     if(Bst(this->root->left).isSubtree(subTree)) return true;
-    return Bst(this->root->right).isSubtree(subtree);
+    return Bst(this->root->right).isSubtree(subTree);
 };
 
-template<typename T> Queue<BstNode<T>*> Bst<T>::getBranch(const BstNode<T>*& subTree){
-    Queue<BstNode<T>*> queue=Queue();
+template<typename T> Queue<BstNode<T>*> Bst<T>::getBranch(BstNode<T>* subTree){
+    Queue<BstNode<T>*> queue=Queue<BstNode<T>*>();
     if(this->root==subTree){
         queue.enqueue(this->root);
         return queue;
@@ -177,7 +177,7 @@ template<typename T> long unsigned int Bst<T>::getHeight(){
 };
 
 // this function is not completed yet;)
-template<typename T> bool Bst<T>::remove(const T& data){
+template<typename T> bool Bst<T>::remove(T data){
     if(this->isEmpty())return false;
     if(this->root->right && this->root->left){
         if(this->root->data==data){
@@ -202,7 +202,8 @@ template<typename T> bool Bst<T>::remove(const T& data){
 
 template<typename T> BstNode<T>* Bst<T>::getRightMin(){
     if(this->isEmpty())return NULL;
-    BstNode<T>* ptr=p=this->right;
+    BstNode<T>* ptr=this->right;
+    BstNode<T>* p=this->right;
     while(ptr){
         BstNode<T>* p=ptr;
         ptr=ptr->left;

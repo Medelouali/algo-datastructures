@@ -16,15 +16,16 @@ class Queue{
         QueueNode<T>* tail;
 
         Queue():head(NULL), tail(NULL){};
-        void enqueue(T item);
+        void enqueue(const T& item);
         QueueNode<T>* dequeue();
+        Queue<QueueNode<T>*> concat(const Queue<QueueNode<T>*>& queue);
         long unsigned int length();
         void print();
         bool isEmpty();
         ~Queue();
 };
 
-template<typename T> void Queue<T>::enqueue(T item){
+template<typename T> void Queue<T>::enqueue(const T& item){
     QueueNode<T>* newNode=new QueueNode<T>;
     newNode->data=item;
     if(!this->tail){
@@ -42,6 +43,15 @@ template<typename T> QueueNode<T>* Queue<T>::dequeue(){
     delete this->head;
     this->head=ptr;
     return ptrx;
+};
+
+template<typename T> Queue<QueueNode<T>*> Queue<T>::concat(const Queue<QueueNode<T>*>& queue){
+    Queue<QueueNode<T>*> queue_t=Queue();
+    QueueNode<T>* ptr=this->head;
+    while(ptr){ queue_t.enqueue(ptr); ptr=ptr->next };
+    ptr=queue->head;
+    while(ptr){ queue_t.enqueue(ptr); ptr=ptr->next };
+    return queue_t;
 };
 
 template<typename T> void Queue<T>::print(){

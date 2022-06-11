@@ -15,7 +15,7 @@ class Stack{
         StackNode<T>* head;
     public:
         Stack():head(NULL){};
-        void push(T item);
+        void push(const T& item);
         StackNode<T>* pop();
         long unsigned int height();
         void print();
@@ -23,7 +23,7 @@ class Stack{
         ~Stack();
 };
 
-template<typename T> void Stack<T>::push(T item){
+template<typename T> void Stack<T>::push(const T& item){
     StackNode<T>* newNode=new StackNode<T>;
     newNode->data=item;
     newNode->next=this->head;

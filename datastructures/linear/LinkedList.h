@@ -16,7 +16,7 @@ class LinkedList{
         ListNode<T>* tail;
 
         LinkedList():head(NULL), tail(NULL){};
-        bool addAt(T item, int index=0);
+        bool addAt(const T& item, int index=0);
         bool removeAt(int index=0);
         ListNode<T>* getAt(int index);
         long unsigned int length();
@@ -24,7 +24,7 @@ class LinkedList{
         ~LinkedList();
 };
 
-template<typename T> bool LinkedList<T>::addAt(T item, int index=0){
+template<typename T> bool LinkedList<T>::addAt(const T& item, int index=0){
     long unsigned int len=this->length();
     if(index<0 || index>=len)return false;
     ListNode<T>* newNode=new ListNode<T>;

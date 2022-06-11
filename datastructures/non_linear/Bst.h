@@ -33,6 +33,8 @@ class Bst{
         void breadthFirstSearch();
         void depthFirstSearchRecursive();
         void depthFirstSearchIterative();
+        long unsigned int countNodes();
+        long unsigned int getHeight();
 };
 
 template<typename T> bool Bst<T>::isEmpty(){
@@ -139,3 +141,15 @@ template<typename T> void Bst<T>::depthFirstSearchIterative(){
     cout<<endl;
 };
 
+template<typename T> long unsigned int Bst<T>::countNodes(){
+    if(this->isEmpty())return 0;
+    return 1 + Bst(this->root->left).countNodes() + Bst(this->root->right).countNodes();
+};
+
+template<typename T> long unsigned int Bst<T>::getHeight(){
+    if(this->isEmpty())return 0;
+    long unsigned int height=0;
+    long unsigned int rightHeight=Bst(this->root->right).getHeight();
+    long unsigned int leftHeight=Bst(this->root->left).getHeight();
+    return 1 + (rightHeight>leftHeight ? rightHeight: leftHeight);
+};

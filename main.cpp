@@ -16,6 +16,6 @@ int main(){
     int arr[N]={7, 1, 0, 4, 2, 3, 9, 8, 5, 6};
     Bst<int> bst=Bst<int>();
     for(int i=0; i<N; i++)bst.insert(arr[i]);
-    bst.printInorder();
+    cout<<bst.getHeight();
     return 0;
 }
